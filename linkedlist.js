@@ -67,6 +67,17 @@ export default function createList() {
     return node;
   };
 
+  const returnEveryValue = (node, string) => {
+    if (node.next === null) {
+      const newStr = `${string}( ${node.value} ) -> null`;
+      return newStr;
+    }
+    const newStr = `${string}( ${node.value} ) -> `;
+    return returnEveryValue(node.next, newStr);
+  };
+
+  const stringify = () => returnEveryValue(getHead(), '');
+
   const pop = () => {
     if (getHead().next === null) {
       getHead().value = null;
@@ -124,5 +135,6 @@ export default function createList() {
     pop,
     contains,
     find,
+    stringify,
   };
 }

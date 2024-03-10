@@ -9,3 +9,4 @@ list.append('asd');
 
 list.logList(list.getHead());
 console.log(list.find('snuke'));
+console.log(list.stringify());
