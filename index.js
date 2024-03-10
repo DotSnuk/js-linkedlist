@@ -6,6 +6,6 @@ list.append('bla');
 list.append('e');
 list.append('ssss');
 list.append('asd');
+
 list.logList(list.getHead());
-console.log(list.getSize());
-console.log(list.at(5));
+console.log(list.find('snuke'));

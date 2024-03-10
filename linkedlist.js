@@ -11,6 +11,11 @@ export default function createList() {
     return findNull(node.next);
   };
 
+  const findSecondLastNull = node => {
+    if (node.next.next === null) return node;
+    return findSecondLastNull(node.next);
+  };
+
   const getHead = () => head;
 
   const tail = () => findNull(getHead());
@@ -37,6 +42,40 @@ export default function createList() {
       return node;
     }
     return 'index too small';
+  };
+
+  const checkValue = (value, node, ...indx) => {
+    if (indx.length > 0) {
+      const i = indx[0];
+      if (node.value === value) return i;
+      if (node.next === null) return false;
+      return checkValue(value, node.next, i + 1);
+    }
+    if (node.value === value) return node;
+    if (node.next === null) return false;
+    return checkValue(value, node.next);
+  };
+
+  const contains = value => {
+    const node = checkValue(value, getHead());
+    if (node !== false) return true;
+    return node;
+  };
+
+  const find = value => {
+    const node = checkValue(value, getHead(), 0);
+    return node;
+  };
+
+  const pop = () => {
+    if (getHead().next === null) {
+      getHead().value = null;
+      decreaseSize();
+    } else {
+      const newLastNode = findSecondLastNull(getHead());
+      newLastNode.next = null;
+      decreaseSize();
+    }
   };
 
   const getSize = () => size;
@@ -82,5 +121,8 @@ export default function createList() {
     getSize,
     tail,
     at,
+    pop,
+    contains,
+    find,
   };
 }
