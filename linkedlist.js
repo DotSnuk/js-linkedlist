@@ -23,7 +23,21 @@ export default function createList() {
     size -= 1;
   };
 
-  const at = index => {};
+  const getNode = (node, howDeep) => {
+    if (howDeep === 0) return node;
+    if (node.next === null && howDeep >= 1) return false;
+    const depth = howDeep - 1;
+    return getNode(node.next, depth);
+  };
+
+  const at = index => {
+    if (index >= 0) {
+      const node = getNode(getHead(), index);
+      if (node === false) return 'index too great';
+      return node;
+    }
+    return 'index too small';
+  };
 
   const getSize = () => size;
 
@@ -48,7 +62,6 @@ export default function createList() {
       const lastNode = findNull(getHead());
       lastNode.next = createNode(val);
       increaseSize();
-      // node.next = createNode(val);
     }
   };
 
@@ -68,5 +81,6 @@ export default function createList() {
     decreaseSize,
     getSize,
     tail,
+    at,
   };
 }
